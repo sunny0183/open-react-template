@@ -1,0 +1,31 @@
+POST http://localhost:3002/api/user HTTP/1.1
+content-type: application/json
+
+{
+    "name": "sample",
+    "email": "test@sample.com",
+    "password": "password123"
+}
+###
+
+POST http://localhost:3002/api/login HTTP/1.1
+content-type: application/json
+
+{
+    "username": "test@sample.com",
+    "password": "password123"
+}
+
+###
+POST http://localhost:3002/api/login HTTP/1.1
+content-type: application/json
+
+{
+    "username": "test@sample.com",
+    "password": "password"
+}
+###
+
+GET http://localhost:3002/api/user/2 HTTP/1.1
+content-type: application/json
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJ0ZXN0QHNhbXBsZS5jb20iLCJuYW1lIjoiTW9oYW1tZWQgQXNpZnV6emFtYW4iLCJpYXQiOjE2ODU1MjkxOTYsImV4cCI6MTY4NTUzMjc5Nn0.f1Oge6_J7IsGInQq2IdGNfOnd3m-aDH9wTVANJ13vUY
