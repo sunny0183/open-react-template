@@ -1,11 +1,26 @@
-export const metadata = {
-  title: 'Sign In - Open PRO',
-  description: 'Page description',
-}
+'use client';
+import { signIn } from 'next-auth/react';
+import React, {useRef} from 'react';
+
+
 
 import Link from 'next/link'
 
 export default function SignIn() {
+  const userName = useRef("");
+  const pass = useRef("");
+
+  const onSubmit = async () => {
+    const result = await signIn("credentials", {
+      username: userName.current,
+      password: pass.current,
+      redirect: false,
+      callbackUrl: "/",
+    });
+    console.log(result);
+
+    await new Promise(resolve => setTimeout(resolve, 30000));
+  };
   return (
     <section className="relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
@@ -37,16 +52,17 @@ export default function SignIn() {
               <div className="border-t border-gray-700 border-dotted grow ml-3" aria-hidden="true"></div>
             </div>
             <form>
+              
               <div className="flex flex-wrap -mx-3 mb-4">
                 <div className="w-full px-3">
                   <label className="block text-gray-300 text-sm font-medium mb-1" htmlFor="email">Email</label>
-                  <input id="email" type="email" className="form-input w-full text-gray-300" placeholder="you@yourcompany.com" required />
+                  <input id="email" type="email" className="form-input w-full text-gray-300" placeholder="you@yourcompany.com" required onChange={(e) => (userName.current = e.target.value)} />
                 </div>
               </div>
               <div className="flex flex-wrap -mx-3 mb-4">
                 <div className="w-full px-3">
                   <label className="block text-gray-300 text-sm font-medium mb-1" htmlFor="password">Password</label>
-                  <input id="password" type="password" className="form-input w-full text-gray-300" placeholder="Password (at least 10 characters)" required />
+                  <input id="password" type="password" className="form-input w-full text-gray-300" placeholder="Password (at least 10 characters)" required onChange={(e) => (pass.current = e.target.value)} />
                 </div>
               </div>
               <div className="flex flex-wrap -mx-3 mb-4">
@@ -62,7 +78,7 @@ export default function SignIn() {
               </div>
               <div className="flex flex-wrap -mx-3 mt-6">
                 <div className="w-full px-3">
-                  <button className="btn text-white bg-purple-600 hover:bg-purple-700 w-full">Sign in</button>
+                  <button className="btn text-white bg-purple-600 hover:bg-purple-700 w-full" onClick={onSubmit}>Sign in</button>
                 </div>
               </div>
             </form>

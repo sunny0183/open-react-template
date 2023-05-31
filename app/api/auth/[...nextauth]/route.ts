@@ -49,8 +49,17 @@ export const authOptions: NextAuthOptions = {
     async session({session, token}){
       session.user = token as any;
       return session;
-    }
+    },
+    async signIn({ user, account, profile, email, credentials }) {
+      return true;
+    },
+    async redirect({ url, baseUrl }) {
+      return baseUrl;
+    },
   },
+  //pages:{
+  //  signIn: '/signin',
+  //}
 }
 
 const handler = NextAuth(authOptions);

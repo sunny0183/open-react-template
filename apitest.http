@@ -2,9 +2,9 @@ POST http://localhost:3002/api/user HTTP/1.1
 content-type: application/json
 
 {
-    "name": "sample",
+    "name": "Mohammed Asifuzzaman 2",
     "email": "test@sample.com",
-    "password": "password123"
+    "password": "p"
 }
 ###
 
