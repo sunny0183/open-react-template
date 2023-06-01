@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import MobileMenu from './mobile-menu'
 import SigninButton from '../sign-in-button'
+import DarkModeToggle from '../darkmodetoggle'
 
 export default function Header() {
   return (
@@ -52,6 +53,9 @@ export default function Header() {
                 <Link href="/signup" className="btn-sm text-white bg-purple-600 hover:bg-purple-700 ml-3">
                   Sign up
                 </Link>
+              </li>
+              <li>
+                <DarkModeToggle/>
               </li>
             </ul>
           </nav>
