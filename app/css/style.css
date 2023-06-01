@@ -30,3 +30,7 @@
   background-color: #111;
   color: #bbb;
 }
+
+.theme {
+  transition: 1s all;
+}
