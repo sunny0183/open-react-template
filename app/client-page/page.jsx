@@ -17,7 +17,7 @@ export default function ClientPage() {
     } 
     if(session) 
     fetchPosts();  
-  }, [session]);  
+  }, [session, posts]);  
   if (status === "loading") {
     return <section><p>Loading...</p></section>
   }
@@ -31,7 +31,7 @@ export default function ClientPage() {
         <p>This is a secured page</p>
         </div>
         <ul>  
-        {session? (posts.map(post => (  
+        {session? ( posts && posts.map(post => (  
           <li key={post.id}>{post.title}|{post.content}|({post.authorId})</li>  
         ))) : <li></li>}  
       </ul>  
