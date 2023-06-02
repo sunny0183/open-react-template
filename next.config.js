@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  images:{
+    domains:['via.placeholder.com']
+  },
   typescript: {
     // Set this to false if you want production builds to abort if there's type errors
     ignoreBuildErrors: process.env.NODE_ENV === "production"

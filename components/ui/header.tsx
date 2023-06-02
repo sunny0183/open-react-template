@@ -24,13 +24,18 @@ export default function Header() {
             </Link>
           </div>
           <div className="shrink-0 mr-4">
-            <Link href="/client-page" className="block" aria-label="user-post">
+            <Link href="/client-page" className="block" aria-label="client-post">
               Client Page
             </Link>
           </div>
           <div className="shrink-0 mr-4">
-            <Link href="/server-page" className="block" aria-label="user-post">
+            <Link href="/server-page" className="block" aria-label="server-post">
               Server Page
+            </Link>
+          </div>
+          <div className="shrink-0 mr-4">
+            <Link href="/Blog" className="block" aria-label="blog-post">
+              Blog
             </Link>
           </div>
 
