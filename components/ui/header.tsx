@@ -34,7 +34,7 @@ export default function Header() {
             </Link>
           </div>
           <div className="shrink-0 mr-4">
-            <Link href="/Blog" className="block" aria-label="blog-post">
+            <Link href="/blog" className="block" aria-label="blog-post">
               Blog
             </Link>
           </div>
