@@ -1,7 +1,22 @@
-import Link from 'next/link'
-import MobileMenu from './mobile-menu'
+"use client";
+
+import Link from 'next/link';
+import MobileMenu from './mobile-menu';
+import { useEffect, useState } from "react";
+import { useMsal } from "@azure/msal-react";
 
 export default function Header() {
+  const { instance } = useMsal();
+  const [name, setName] = useState<string|null>();
+
+  const activeAccount = instance.getActiveAccount();
+  useEffect(() => {
+    if (activeAccount && activeAccount.name) {
+        setName(activeAccount.name);
+    } else {
+        setName(null);
+    }
+  }, [activeAccount]);
   return (
     <header className="absolute w-full z-30">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
@@ -21,6 +36,9 @@ export default function Header() {
             {/* Desktop sign in links */}
             <ul className="flex grow justify-end flex-wrap items-center">
               <li>
+                {
+                  name
+                }
                 <Link
                   href="/signin"
                   className="font-medium text-purple-600 hover:text-gray-200 px-4 py-3 flex items-center transition duration-150 ease-in-out"

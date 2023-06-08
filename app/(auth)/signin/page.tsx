@@ -1,11 +1,43 @@
-export const metadata = {
-  title: 'Sign In - Open PRO',
-  description: 'Page description',
-}
+"use client";
+
+import { useState } from "react";
+import { useMsal } from "@azure/msal-react";
+import { loginRequest } from "@/components/aad/authConfig";
+
+
+//export const metadata = {
+//  title: 'Sign In - Open PRO',
+//  description: 'Page description',
+//}
 
 import Link from 'next/link'
 
 export default function SignIn() {
+  const { instance } = useMsal();
+
+    const [anchorEl, setAnchorEl] = useState(null);
+    const open = Boolean(anchorEl);
+
+    const handleLogin = (e:Event,loginType:any) => {
+      setAnchorEl(null);
+      e.preventDefault();
+      if (loginType === "popup") {
+          instance.loginPopup(loginRequest).catch((e) =>{ console.error(`loginPopup failed: ${e}`); alert(`loginPopup failed: ${e}`); });
+      } else if (loginType === "redirect") {
+          instance.loginRedirect(loginRequest).catch((e) => { console.error(`loginRedirect failed: ${e}`); alert(`loginPopup failed: ${e}`); })
+      };
+    }
+    const handleLogout = (e:Event,logoutType:any) => {
+      setAnchorEl(null);
+      e.preventDefault();
+
+      if (logoutType === "popup") {
+          instance.logoutPopup().catch((e) => { console.error(`logoutPopup failed: ${e}`); alert(`logoutPopup failed: ${e}`); });
+      } else if (logoutType === "redirect") {
+          instance.logoutRedirect().catch((e) => { console.error(`logoutRedirect failed: ${e}`); alert(`loginPopup failed: ${e}`); });
+      }
+    }
+
   return (
     <section className="relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
@@ -27,6 +59,40 @@ export default function SignIn() {
                     </svg>
                     <span className="h-6 flex items-center border-r border-white border-opacity-25 mr-4" aria-hidden="true"></span>
                     <span className="flex-auto pl-16 pr-8 -ml-16">Sign in with Google</span>
+                  </button>
+                </div>
+              </div>
+            </form>
+            <form>
+              <div className="flex flex-wrap -mx-3">
+                <div className="w-full px-3">
+                  <button onClick={(e) => handleLogin(e,"popup")}
+                  className="btn px-0 text-white bg-red-600 hover:bg-red-700 w-full relative flex items-center">
+                    <svg className="w-4 h-4 fill-current text-white opacity-75 shrink-0 mx-4" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M7.9 7v2.4H12c-.2 1-1.2 3-4 3-2.4 0-4.3-2-4.3-4.4 0-2.4 2-4.4 4.3-4.4 1.4 0 2.3.6 2.8 1.1l1.9-1.8C11.5 1.7 9.9 1 8 1 4.1 1 1 4.1 1 8s3.1 7 7 7c4 0 6.7-2.8 6.7-6.8 0-.5 0-.8-.1-1.2H7.9z" />
+                    </svg>
+                    <span className="h-6 flex items-center border-r border-white border-opacity-25 mr-4" aria-hidden="true"></span>
+                    <span className="flex-auto pl-16 pr-8 -ml-16">Sign in with AAD (Popup)</span>
+                  </button>
+                </div>
+                <div className="w-full px-3">
+                  <button onClick={(e) => handleLogin(e,"redirect")}
+                  className="btn px-0 text-white bg-red-600 hover:bg-red-700 w-full relative flex items-center">
+                    <svg className="w-4 h-4 fill-current text-white opacity-75 shrink-0 mx-4" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M7.9 7v2.4H12c-.2 1-1.2 3-4 3-2.4 0-4.3-2-4.3-4.4 0-2.4 2-4.4 4.3-4.4 1.4 0 2.3.6 2.8 1.1l1.9-1.8C11.5 1.7 9.9 1 8 1 4.1 1 1 4.1 1 8s3.1 7 7 7c4 0 6.7-2.8 6.7-6.8 0-.5 0-.8-.1-1.2H7.9z" />
+                    </svg>
+                    <span className="h-6 flex items-center border-r border-white border-opacity-25 mr-4" aria-hidden="true"></span>
+                    <span className="flex-auto pl-16 pr-8 -ml-16">Sign in with AAD (Redirect)</span>
+                  </button>
+                </div>
+                <div className="w-full px-3">
+                  <button onClick={(e) => handleLogout(e,"redirect")}
+                  className="btn px-0 text-white bg-red-600 hover:bg-red-700 w-full relative flex items-center">
+                    <svg className="w-4 h-4 fill-current text-white opacity-75 shrink-0 mx-4" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M7.9 7v2.4H12c-.2 1-1.2 3-4 3-2.4 0-4.3-2-4.3-4.4 0-2.4 2-4.4 4.3-4.4 1.4 0 2.3.6 2.8 1.1l1.9-1.8C11.5 1.7 9.9 1 8 1 4.1 1 1 4.1 1 8s3.1 7 7 7c4 0 6.7-2.8 6.7-6.8 0-.5 0-.8-.1-1.2H7.9z" />
+                    </svg>
+                    <span className="h-6 flex items-center border-r border-white border-opacity-25 mr-4" aria-hidden="true"></span>
+                    <span className="flex-auto pl-16 pr-8 -ml-16">Sign Out with AAD (Redirect)</span>
                   </button>
                 </div>
               </div>
